@@ -1,0 +1,155 @@
+@import './anim';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Futura, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  font-size: 20px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.common-container {
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+.common-global-loading.ant-spin-spinning {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+// .avatar-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .avatar {
+//   display: inline-block;
+//   width: 3rem;
+//   height: 3rem;
+//   padding: .3rem;
+//   border: 1px solid #CCCCCC;
+//   border-radius: 50%;
+//   margin: 0 0 0 .6rem;
+// }
+
+// .btn {
+//   border-radius: 1rem;
+//   width: 6rem;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: .15rem .3rem;
+//   border: #666666 1px solid;
+//   color: #666666;
+//   margin: 0 .5rem;
+//   font-size: .8rem;
+//   cursor: pointer;
+//   appearance: none !important;
+// }
+// .btn.btn-blue {
+//   color: #05BCF5;
+//   border-color: #05BCF5;
+// }
+// .btn:hover, .btn.btn-filled {
+//   background: linear-gradient(#66BFFF, #81EAFF);
+//   color: white;
+//   border-left-color: transparent;
+//   border-right-color: transparent;
+//   border-top-color: #66BFFF;
+//   border-bottom-color: #81EAFF;
+// }
+// .btn.disabled {
+//   opacity: .5;
+//   cursor: not-allowed;
+// }
+// .btn.full {
+//   width: 100%;
+// }
+// .btn.btn-half {
+//   width: 45%;
+// }
+
+// .solid-btn {
+//   background: #FCFCFC;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   border: 1px solid #CCCCCC;
+//   color: #666666;
+//   font-size: .7rem;
+//   width: 4.3rem;
+//   border-radius: .2rem;
+//   height: 1.8rem;
+//   cursor: pointer;
+//   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+// }
+// .solid-btn.disabled {
+//   cursor: not-allowed;
+//   opacity: .5;
+// }
+
+// .flex-around-center {
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+// }
+
+// img {
+//   max-width: 100%;
+// }
+
+// .contain video {
+//   height: 100% !important;
+//   width: 100% !important;
+//   position: absolute !important;
+//   left: 0 !important;
+//   top: 0 !important;
+// }
+
+// .animation-spin {
+//   width: 4.05rem !important;
+//   height: 4.05rem !important;
+//   animation: spin 1.5s linear infinite;
+// }
+
+// .animation-disappear {
+//   animation: disappear .2s ease-out 1;
+// }
+
+// .ant-input:hover, .ant-select-selection:hover {
+//   border-color: #04BDF6 !important;
+// }
+
+// .ant-dropdown-menu-item:hover, .ant-dropdown-menu-submenu-title:hover {
+//   background-color: #EEEEEE !important;
+// }
+
+// .ant-checkbox-checked .ant-checkbox-inner, .ant-checkbox-indeterminate .ant-checkbox-inner {
+//   background-color: #67C0FF !important;
+//   border-color: #67C0FF !important;
+// }
+
+// .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+//   border-color: #67C0FF !important;
+// }
+
+// #roomName {
+//   text-transform: uppercase;
+// }

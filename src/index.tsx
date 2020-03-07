@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 // import AgoraRTC from 'agora-rtc-sdk';
 
-import '@/index.less';
+import '@/styles/index.less';
 import { isDev } from '@/config';
 import configureStore from '@/store';
 import App from './App';

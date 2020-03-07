@@ -6,7 +6,7 @@ module.exports = {
   },
   env: {
     BUILD_TIMESTAMP: (new Date()).getTime(),
-    APP_VERSION: '1',
+    APP_VERSION: '1.0.1',
     APP_BRANCHE: 'master'
   },
   antdLessModifyVars: {
