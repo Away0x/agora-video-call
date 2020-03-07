@@ -1,0 +1,29 @@
+export const START_LOADING = 'START_LOADING';
+
+export const STOP_LOADING = 'STOP_LOADING';
+
+export const UPDATE_ROOM = 'UPDATE_ROOM';
+
+export const UPDATE_USERS = 'UPDATE_USERS';
+
+export const ADD_USER = 'ADD_USER';
+
+export const REMOVE_USER = 'REMOVE_USER';
+
+export const MUTE_USER = 'MUTE_USER';
+
+export const UNMUTE_USER = 'UNMUTE_USER';
+
+export const NEW_MESSAGE = 'NEW_MESSAGE';
+
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+
+export const UPDATE_LOCAL_USER = 'UPDATE_LOCAL_USER';
+
+export const UPDATE_USER = 'UPDATE_USER';
+
+export const ADD_TO_UNMUTEPOOL = 'ADD_TO_UNMUTEPOOL';
+
+export const REMOVE_FROM_UNMUTEPOOL = 'REMOVE_FROM_UNMUTEPOOL';
+
+export const UPDATE_ROOM_SECURE = 'UPDATE_ROOM_SECURE';
