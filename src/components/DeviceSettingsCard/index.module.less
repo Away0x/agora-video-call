@@ -1,0 +1,78 @@
+.deviceSettingsCardComponent {
+  .animationAppear {
+    width: 360px;
+    box-shadow: 0 6px 8px 3px rgba(222,222,222,.5);
+    border-radius: 4px;
+  }
+
+  .cartTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 18px;
+
+    .backIcon {
+      cursor: pointer;
+    }
+    .titleText {
+      flex-grow: 1;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  .contentContainer {
+    position: relative;
+    width: 100%;
+  }
+
+  .videoSetting {
+    position: relative;
+    display: flex;
+  }
+
+  .videoSettingLeft {
+    position: relative;
+  }
+
+  .audioSetting {
+    margin-bottom: 1.5rem;
+  }
+
+  .settingLabel {
+    color: #333333;
+    width: 5.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+
+  .settingDesc {
+    color: #666666;
+    font-size: .7rem;
+  }
+
+  .videoSettingSelect {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .audioSettingSelect {
+    margin-top: 0.85rem;
+    width: 11.5rem;
+  }
+
+  .previewWindow {
+    width: 6rem;
+    height: 6rem;
+    margin: .5rem;
+    background: #FAFAFA;
+    border-radius: .2rem;
+  }
+
+  .previewWindow > * {
+    border-radius: .2rem;
+  }
+}

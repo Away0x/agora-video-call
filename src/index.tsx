@@ -5,18 +5,15 @@ import { HashRouter as Router } from 'react-router-dom';
 
 import '@/styles/index.less';
 import { isDev } from '@/config';
-import configureStore from '@/store';
 import App from './App';
 import * as serviceWorker from '@/serviceWorker';
 
-const store = configureStore();
-(window as any).store = store;
 // AgoraRTC.Logger.enableLogUpload();
 
 const renderApp = () => {
   ReactDOM.render(
     <Router>
-      <App store={store} />
+      <App />
     </Router>,
     document.getElementById('root')
   );

@@ -6,8 +6,7 @@ import s from './index.module.less';
 import ScaleInWrapper from '@/components/ScaleInWrapper';
 
 import AvatarSelector from './AvatarSelector';
-import MicSwitcher from './MicSwitcher';
-import CameraSwitcher from './CameraSwitcher';
+import { useSwitcher } from './helpers';
 
 const MForm: any = Form;
 const MFormItem: any = Form.Item;
@@ -52,6 +51,7 @@ const nicknameFormRules = [
   },
 ];
 
+
 function UserSettingsCard({
   defaultAvatarId = '1',
   defaultNickname = '',
@@ -67,6 +67,9 @@ function UserSettingsCard({
     videoEnabled: defaultEnableVideo,
     audioEnabled: defaultEnableAudio,
   };
+
+  const { Switcher: CameraSwitcher } = useSwitcher('camera');
+  const { Switcher: MicSwitcher } = useSwitcher('mic');
 
   const handleCancel = useCallback(() => {
     onCancel && onCancel();
