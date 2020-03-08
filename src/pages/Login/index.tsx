@@ -1,28 +1,41 @@
-import React, { } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import Loading from '@/components/Loading';
 
-import JoinRoomCard from '@/components/JoinRoomCard';
-import SetNicknameCard from '@/components/SetNicknameCard';
-import UserSettingsCard from '@/components/UserSettingsCard';
-import DeviceSettingsCard from '@/components/DeviceSettingsCard';
-// import GDPRTermsView from '@/components/GDPRTermsView';
-// import ScaleInWrapper from '@/components/ScaleInWrapper';
+import { useGlobalState, useUserState } from '@/containers/root';
+import {
+  RegisterUserParams,
+} from '@/services/user';
+import userInteractors from '@/interactors/user';
 
-interface LoginPageProps {
-  a?: string;
-}
+import LoginPage from './page';
 
-function LoginPage({
-  a,
-}: LoginPageProps) {
+
+function LoginPageContainer() {
+  const { loading } = useGlobalState();
+  const {
+    portraitId,
+  } = useUserState();
+
+  const avatar = useMemo(() => {
+    return portraitId
+      ? require(`@/assets/images/avatar/avatar-${portraitId}.png`)
+      : require('@/assets/images/avatar/default.png');
+  }, [portraitId]);
+
+  const handleRegisterUser = useCallback((params: RegisterUserParams) => {
+    return userInteractors.registerUser(params);
+  }, []);
+
   return (
-    <div>
-      <JoinRoomCard />
-      <SetNicknameCard />
-      <UserSettingsCard />
-      <DeviceSettingsCard />
-      {/* <GDPRTermsView /> */}
-    </div>
+    <>
+      {loading ? <Loading /> : null}
+
+      <LoginPage
+        avatar={avatar}
+        registerUser={handleRegisterUser}
+      />
+    </>
   );
 }
 
-export default React.memo(LoginPage);
+export default React.memo(LoginPageContainer);

@@ -16,7 +16,7 @@ type SetNicknameCardProps = {
   onCancel?: () => void;
 };
 
-type FormType = {
+export type FormType = {
   nickname: string;
 }
 

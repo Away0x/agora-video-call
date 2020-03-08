@@ -23,4 +23,14 @@ export const isMobile = () => {
   return userAgentInfo.device.type === 'mobile';
 };
 
-export default userAgentInfo;
+export const isVP8Supported = () => {
+  // safari will support vp8 after 12.1
+  const safariVersionStr = isSafari ? (userAgentInfo.browser.version || '') : '0.0.0';
+  const [major, minor] = safariVersionStr.split('.');
+  if (Number(major) > 12) {
+    return true;
+  } else if (Number(major) === 12) {
+    return Number(minor) >= 1;
+  }
+  return false;
+};

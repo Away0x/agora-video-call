@@ -1,0 +1,56 @@
+.indexPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: '';
+    background: url('~@/assets/images/index-background.png') no-repeat center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -2;
+  }
+
+  .header {
+    position: absolute;
+    width: 100%;
+    height: 4rem;
+    padding: 25px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    width: 40px;
+  }
+
+  .title {
+    margin-left: 20px;
+    font-size: 16px;
+  }
+
+  .userSetting {
+    text-align: right;
+  }
+
+  .userSettingImg {
+    width: 40px;
+    cursor: pointer;
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

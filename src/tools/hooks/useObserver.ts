@@ -6,7 +6,7 @@ export function useObserver<T>(store: IObserver<T>) {
   const [state, setState] = useState<T>(store.defaultState);
 
   useEffect(() => {
-    store.subscribe((state: any) => {
+    store.subscribe((state: T) => {
       setState(state);
     });
 

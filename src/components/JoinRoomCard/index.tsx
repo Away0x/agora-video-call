@@ -19,7 +19,7 @@ type JoinRoomCardProps = {
   onOpenSettings?: () => void;
 }
 
-type FormType = {
+export type FormType = {
   roomName: string;
   password: string;
 }

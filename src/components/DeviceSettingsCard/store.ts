@@ -1,8 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
 import AgoraRTC from 'agora-rtc-sdk';
 
-import { IObserver } from '@/tools/rx';
+import { RxStore } from '@/tools/rx';
 import { isSafari } from '@/tools/browser';
+import { VideoQuality } from '@/constants';
 
 export type SubmitDevicesInfo = {
   cameraId?: string;
@@ -21,13 +21,13 @@ export interface DeviceSettingsCardState {
   tempStream: null | AgoraRTC.Stream
 }
 
-class DeviceSettingsCardStore implements IObserver<DeviceSettingsCardState> {
+class DeviceSettingsCardStore extends RxStore<DeviceSettingsCardState> {
 
   public PREVIEW_DOM_ID = 'preview-window';
   public VideoProfiles = [
-    { label: 'Low', value: '120p_1' },
-    { label: 'Standard', value: '480p_1' },
-    { label: 'High', value: '720p_1' }
+    { label: 'Low', value: VideoQuality.Low },
+    { label: 'Standard', value: VideoQuality.Standard },
+    { label: 'High', value: VideoQuality.High }
   ];
   private refreshStreamPromise: Promise<any> | null = null;
 
@@ -40,32 +40,20 @@ class DeviceSettingsCardStore implements IObserver<DeviceSettingsCardState> {
     tempStream: null,
   }
 
-  public subject: BehaviorSubject<DeviceSettingsCardState> = new BehaviorSubject(this.defaultState);
-
-  public set state(newState: DeviceSettingsCardState) {
-    this.subject.next(newState);
-  }
-
-  public get state() {
-    return this.subject.getValue();
-  }
-
-  public commit(newState: Partial<DeviceSettingsCardState>) {
-    this.subject.next({ ...this.subject.getValue(), ...newState });
-  }
-
-  public subscribe(updateState: any) {
-    this.subject.subscribe(updateState);
-  }
-
-  public unsubscribe() {
-    this.subject.unsubscribe();
-
+  public async unsubscribe() {
     if (this.refreshStreamPromise) {
-      this.refreshStreamPromise.then(this.closeStream).catch(this.closeStream);
+      try {
+        await this.refreshStreamPromise;
+        this.closeStream();
+      } catch (err) {
+        this.closeStream();
+        console.warn(err);
+      }
     }
     this.refreshStreamPromise = null;
     this.closeStream();
+
+    super.unsubscribe();
   }
 
   public getDevices(defaultMicrophoneId: string, defaultCameraId: string, defaultVideoProfile: string) {

@@ -8,7 +8,7 @@
 })('MAIN_CONFIG', function () {
 
   return {
-    API_ROOT: ''
+    API_ROOT: 'https://videocall.agora.io/'
   };
 
 }, this);

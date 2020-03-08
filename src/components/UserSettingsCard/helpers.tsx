@@ -14,41 +14,25 @@ export function useSwitcher(imgName: 'mic' | 'camera', defaultValue = true) {
     setEnable(!enable);
   }, [enable]);
 
-  const cameraIcon = useCallback(() => {
-    return enable
-      ? <img
-        style={IconStyle}
-        src={require('@/assets/images/camera-active.png')}
-        alt="audio control" />
-      : <img
-        style={IconStyle}
-        src={require('@/assets/images/camera-inactive.png')}
-        alt="audio control"
-      />;
-  }, [enable]);
+  const iconImg = useCallback(() => {
+    const alt = `${imgName === 'mic' ? 'audio' : 'video'} control`;
 
-  const micIcon = useCallback(() => {
     return enable
-      ? <img
-        style={IconStyle}
-        src={require('@/assets/images/mic-active.png')}
-        alt="audio control" />
-      : <img
-        style={IconStyle}
-        src={require('@/assets/images/mic-inactive.png')}
-        alt="audio control"
-      />;
-  }, [enable]);
+      ? <img style={IconStyle} alt={alt}
+          src={require(`@/assets/images/${imgName}-active.png`)}
+          />
+      : <img style={IconStyle} alt={alt}
+          src={require(`@/assets/images/${imgName}-inactive.png`)}
+          />;
+  }, [enable, imgName]);
 
   const Switcher = useCallback(({ style }: {
     style: CSSProperties;
   }) => {
     return (
-      <Icon style={{ ...(style || {}) }}
-        onClick={handleSwitch}
-        component={imgName === 'camera' ? cameraIcon : micIcon} />
+      <Icon style={{ ...(style || {}) }} onClick={handleSwitch} component={iconImg} />
     );
-  }, [imgName, cameraIcon, micIcon, handleSwitch]);
+  }, [iconImg, handleSwitch]);
 
   return {
     Switcher,

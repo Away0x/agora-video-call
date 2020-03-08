@@ -178,5 +178,6 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
-  }
+  },
+  "proxy": "https://videocall.agora.io"
 }

@@ -20,7 +20,7 @@ type DeviceSettingsCardProps = {
   uploadLog?: () => void;
 };
 
-type FormType = {
+export type FormType = {
   cameraId?: string;
   camera?: string;
   microphoneId?: string;

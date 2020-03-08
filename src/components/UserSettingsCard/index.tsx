@@ -20,7 +20,7 @@ type UserSettingsCardProps = {
   onCancel?: () => void;
 };
 
-type FormType = {
+export type FormType = {
   avatarId: string;
   nickname: string;
   videoEnabled: boolean;
