@@ -6,7 +6,7 @@ const loadingIcon = <LoadingOutlined style={{ fontSize: 50 }} spin />;
 
 const Loading = () => (
   <Spin
-    className="common-global-loading"
+    className="g-loading"
     size="large"
     indicator={loadingIcon}
   />

@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useMemo, useEffect } from 'react';
 
 import { isDev as isDevCheck } from '@/config';
-import globalStore, { GlobalState } from '@/store/global';
-import userStore, { UserState } from '@/store/user';
-import roomStore, { RoomState } from '@/store/room';
+import globalStore, { GlobalState } from '@/stores/global';
+import userStore, { UserState } from '@/stores/user';
+import roomStore, { RoomState } from '@/stores/room';
 import { useObserver } from '@/tools/hooks/useObserver';
 
 const isDev = isDevCheck();

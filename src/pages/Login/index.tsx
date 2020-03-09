@@ -5,9 +5,9 @@ import { useGlobalState, useUserState } from '@/containers/root';
 import {
   RegisterUserParams,
 } from '@/services/user';
-import userInteractors from '@/interactors/user';
+import { userInteractors } from '@/interactors/user';
 
-import LoginPage from './page';
+import LoginPage from './LoginPage';
 
 
 function LoginPageContainer() {

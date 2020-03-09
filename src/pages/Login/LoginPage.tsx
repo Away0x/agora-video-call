@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 
-import s from './index.module.less';
+import s from './LoginPage.module.less';
 import { localStorage as storage } from '@/tools/storage';
 
 import JoinRoomCard, { FormType as JoinRoomCardSubmitData } from '@/components/JoinRoomCard';
@@ -93,7 +93,7 @@ function LoginPage({
   }, [currentCard]);
 
   return (
-    <div className={`common-container ${s.indexPage}`}>
+    <div className={`g-container ${s.indexPage}`}>
       {!gdprAccepted && <GDPRTermsView onOk={acceptGDPR} />}
       <header className={s.header}>
         <div>

@@ -3,6 +3,7 @@ import { message } from 'antd';
 // import qs from 'qs';
 
 // import { API_ROOT } from '@/config';
+import { Singleton } from '@/tools/Singleton';
 import { serviceErrorMap } from '@/constants';
 import { localStorage as storage } from '@/tools/storage';
 
@@ -56,21 +57,20 @@ axios.interceptors.response.use(
   },
 );
 
-class HTTPUtil {
-  private static _instance: HTTPUtil | null = null;
-
-  public static instance(): HTTPUtil {
-    if (this._instance === null) {
-      this._instance = new this();
-    }
-
-    return this._instance!;
-  }
+class Request extends Singleton {
 
   public async request<T>(config: HTTPUtilRequestConfig): Promise<T> {
     // config.data = qs.stringify(config.data);
     const resp = await axios(config);
     return resp.data;
+  }
+
+  public async get<T = any>(config: HTTPUtilRequestConfig): Promise<T> {
+    return this.request({...config, ...{method: 'GET'}});
+  }
+
+  public async post<T = any>(config: HTTPUtilRequestConfig): Promise<T> {
+    return this.request({...config, ...{method: 'POST'}});
   }
 
 }
@@ -92,4 +92,4 @@ export const setRequestMaxTimeout = (ms: number) => {
   axios.defaults.timeout = ms;
 };
 
-export default HTTPUtil;
+export const request = Request.instance<Request>();

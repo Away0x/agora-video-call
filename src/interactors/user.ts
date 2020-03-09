@@ -1,26 +1,18 @@
-import userStore from '@/store/user';
-import globalStore from '@/store/global';
+import userStore from '@/stores/user';
+import globalStore from '@/stores/global';
 import {
-  registerUser as registerUserService,
+  userServices,
   RegisterUserParams,
 } from '@/services/user';
+import { Singleton } from 'tools/Singleton';
 
-class UserInteractors {
-  private static _instance: UserInteractors | null = null;
-
-  public static instance(): UserInteractors {
-    if (this._instance === null) {
-      this._instance = new this();
-    }
-
-    return this._instance!;
-  }
+class UserInteractors extends Singleton {
 
   /** 用户注册 */
   public async registerUser(params: RegisterUserParams) {
     globalStore.startLoading();
     try {
-      const { uid, name, portraitId, streamId } = await registerUserService(params);
+      const { uid, name, portraitId, streamId } = await userServices.registerUser(params);
       userStore.updateUserInfo({ uid, name, portraitId, streamId });
       globalStore.stopLoading();
     } catch (err) {
@@ -31,4 +23,4 @@ class UserInteractors {
 
 }
 
-export default UserInteractors.instance();
+export const userInteractors = UserInteractors.instance<UserInteractors>();
