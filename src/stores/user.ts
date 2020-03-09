@@ -21,7 +21,8 @@ export interface UserState {
   microphone?: string;
 }
 
-const storageData = storage.read('userState');
+const STORAGE_KEY = 'userState';
+const storageData = storage.read(STORAGE_KEY);
 
 class UserStore extends RxStore<UserState> {
 
@@ -43,6 +44,10 @@ class UserStore extends RxStore<UserState> {
       codec: 'vp8',
     },
   };
+
+  public stateUpdate(state: Readonly<UserState>) {
+    storage.save(STORAGE_KEY, state);
+  }
 
   public updateUserInfo(newInfo: Partial<UserState>) {
     this.commit(newInfo);

@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
-import Loading from '@/components/Loading';
+import { useHistory } from 'react-router-dom';
 
-import { useGlobalState, useUserState } from '@/containers/root';
+import Loading from '@/components/Loading';
+import { useGlobalState, useUserState, useRoomState } from '@/containers/root';
 import {
   RegisterUserParams,
 } from '@/services/user';
@@ -11,10 +12,25 @@ import LoginPage from './LoginPage';
 
 
 function LoginPageContainer() {
+  const history = useHistory();
+
   const { loading } = useGlobalState();
+
   const {
     portraitId,
+    name,
+    enableAudio,
+    enableVideo,
+    microphoneId,
+    cameraId,
+    videoProfile,
   } = useUserState();
+
+  const {
+    roomId,
+    hasPwd,
+    roomPwd,
+  } = useRoomState();
 
   const avatar = useMemo(() => {
     return portraitId
@@ -26,12 +42,27 @@ function LoginPageContainer() {
     return userInteractors.registerUser(params);
   }, []);
 
+  const gotoMettingPage = useCallback(() => {
+    history.push('/metting');
+  }, [history]);
+
   return (
     <>
       {loading ? <Loading /> : null}
 
       <LoginPage
+        portraitId={portraitId}
+        name={name}
         avatar={avatar}
+        enableAudio={enableAudio}
+        enableVideo={enableVideo}
+        microphoneId={microphoneId}
+        cameraId={cameraId}
+        videoProfile={videoProfile}
+        roomId={roomId}
+        hasPwd={hasPwd}
+        roomPwd={roomPwd}
+        gotoMettingPage={gotoMettingPage}
         registerUser={handleRegisterUser}
       />
     </>

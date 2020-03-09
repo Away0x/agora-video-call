@@ -6,7 +6,8 @@ export interface GlobalState {
   unmuteRequestTimeout: number;
 }
 
-const storageData = storage.read('globalState');
+const STORAGE_KEY = 'globalState';
+const storageData = storage.read(STORAGE_KEY);
 
 class GlobalStore extends RxStore<GlobalState> {
 
@@ -16,7 +17,12 @@ class GlobalStore extends RxStore<GlobalState> {
       unmuteRequestTimeout: 15000,
     },
     ...(storageData || {}),
+    ...(this.state || {}),
   };
+
+  public stateUpdate(state: Readonly<GlobalState>) {
+    storage.save(STORAGE_KEY, state);
+  }
 
   public startLoading() {
     this.commit({

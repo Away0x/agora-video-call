@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Button, Card, Divider, Select, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -44,21 +44,21 @@ function DeviceSettingsCard({
   const PREVIEW_DOM_ID = store.PREVIEW_DOM_ID;
   const VideoProfiles = store.VideoProfiles;
 
-  const handleAudioChange = (index: number) => {
+  const handleAudioChange = useCallback((index: number) => {
     store.setAudioIndex(index);
-  };
+  }, []);
 
-  const handleVideoChange = (index: number) => {
+  const handleVideoChange = useCallback((index: number) => {
     store.setVideoIndex(index);
-  };
+  }, []);
 
-  const handleVideoProfileChange = (e: RadioChangeEvent) => {
+  const handleVideoProfileChange = useCallback((e: RadioChangeEvent) => {
     store.setVideoProfile(e.target.value);
-  };
+  }, []);
 
-  const handleUpdateDevices = () => {
+  const handleUpdateDevices = useCallback(() => {
     onSubmit && onSubmit(store.getDevicesInfo());
-  };
+  }, [onSubmit]);
 
   useEffect(() => {
     store.getDevices(defaultMicrophoneId, defaultCameraId, defaultVideoProfile).then(() => {

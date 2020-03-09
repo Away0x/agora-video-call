@@ -10,7 +10,7 @@ export interface IObserver<T> {
 
 export abstract class RxStore<T> implements IObserver<T> {
 
-  public abstract readonly defaultState: T;
+  public abstract readonly defaultState: Readonly<T>;
   public subject: BehaviorSubject<T> | null = null;
 
   public set state(newState: T) {
@@ -26,9 +26,15 @@ export abstract class RxStore<T> implements IObserver<T> {
     this.subject = new BehaviorSubject(this.defaultState);
   };
 
-  public subscribe(updateState: (state: T) => void) {
+  public stateUpdate(state: Readonly<T>) {}
+
+  public subscribe(stateUpdate: (state: Readonly<T>) => void) {
     this.initialize();
-    this.subject && this.subject.subscribe(updateState);
+
+    this.subject && this.subject.subscribe((s) => {
+      this.stateUpdate(s);
+      stateUpdate(s);
+    });
   }
 
   public unsubscribe() {

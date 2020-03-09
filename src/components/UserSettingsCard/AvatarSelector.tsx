@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import React, { CSSProperties, useState, useEffect, useCallback } from 'react';
 import { Avatar, Modal } from 'antd';
 
 const normalStyle: CSSProperties = {
@@ -37,18 +37,18 @@ function AvatarSelector({
     // eslint-disable-next-line
   }, [avatarId]);
 
-  const handleOk = () => {
+  const handleOk = useCallback(() => {
     setVisible(false);
     setAvatarId(tempId);
-  };
+  }, [tempId]);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
 
-  const handleChooseAvatar = (id: number) => {
+  const handleChooseAvatar = useCallback((id: number) => {
     setTempId(id);
-  };
+  }, []);
 
   return (
     <>

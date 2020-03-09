@@ -26,11 +26,38 @@ const gdprAcceptedStorageData: boolean = storage.read(gdprAcceptedStorageKey);
 
 interface LoginPageProps {
   avatar: string;
+  portraitId?: string;
+  name: string;
+
+  enableAudio: boolean;
+  enableVideo: boolean;
+  microphoneId?: string;
+  cameraId?: string;
+  videoProfile: string;
+
+  roomId: string;
+  roomPwd: string;
+  hasPwd: boolean;
+
+  gotoMettingPage: () => void;
   registerUser: (d: RegisterUserParams) => Promise<void>;
 }
 
 function LoginPage({
   avatar,
+  portraitId,
+  name,
+  enableAudio,
+  enableVideo,
+  roomId,
+  roomPwd,
+  hasPwd,
+  microphoneId,
+  cameraId,
+  videoProfile,
+
+  gotoMettingPage,
+
   registerUser,
 }: LoginPageProps) {
   const [gdprAccepted, setGdprAccepted] = useState(gdprAcceptedStorageData || false);
@@ -75,10 +102,13 @@ function LoginPage({
   const CurrentCardComponent = useCallback(() => {
     if (currentCard === CardType.SET_NICKNAME_CARD) {
       return <SetNicknameCard
+        defaultNickname={name}
         onCancel={switchJoinRoomCard}
         onSubmit={onSettingNickName} />
     } else if (currentCard === CardType.USER_SETTING_CARD) {
       return <UserSettingsCard
+        defaultNickname={name}
+        defaultAvatarId={portraitId}
         onCancel={switchJoinRoomCard}
         onSubmit={onUpdateUserSettings} />
     } else if (currentCard === CardType.DEVICE_SETTING_CARD) {

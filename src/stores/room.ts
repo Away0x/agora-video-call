@@ -5,6 +5,7 @@ import { localStorage as storage } from '@/tools/storage';
 
 export interface RoomState {
   roomId: string;
+  roomPwd: string;
   topic: string;
   hosts: List<any>;
   hostsDetails: List<any>;
@@ -22,13 +23,15 @@ export interface RoomState {
   roomSecure: boolean;
 }
 
-const storageData = storage.read('roomState');
+const STORAGE_KEY = 'roomState';
+const storageData = storage.read(STORAGE_KEY);
 
 class RoomStore extends RxStore<RoomState> {
 
   public readonly defaultState: RoomState = {
     ...{
       roomId: '',
+      roomPwd: '',
       topic: '',
       hosts: List(),
       hostsDetails: List(),
@@ -54,6 +57,10 @@ class RoomStore extends RxStore<RoomState> {
       hostsDetails: List()
     },
   };
+
+  public stateUpdate(state: Readonly<RoomState>) {
+    storage.save(STORAGE_KEY, state);
+  }
 
   public updateUsers(user: any) {
     this.commit({
