@@ -9,7 +9,7 @@ import {
 
 
 const isChrome = isChromeCheck();
-const isSafari = isSafariCheck();
+export const isSafari = isSafariCheck();
 
 export function browserCheck() {
   const isAgoraSupported = AgoraRTC.checkSystemRequirements();

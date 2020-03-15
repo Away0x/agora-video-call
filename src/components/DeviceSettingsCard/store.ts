@@ -44,10 +44,10 @@ class DeviceSettingsCardStore extends RxStore<DeviceSettingsCardState> {
     if (this.refreshStreamPromise) {
       try {
         await this.refreshStreamPromise;
-        this.closeStream();
       } catch (err) {
-        this.closeStream();
         console.warn(err);
+      } finally {
+        this.closeStream();
       }
     }
     this.refreshStreamPromise = null;

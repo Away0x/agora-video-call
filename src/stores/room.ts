@@ -70,6 +70,10 @@ class RoomStore extends RxStore<RoomState> {
     });
   }
 
+  public updateRoom(room: Partial<RoomState>) {
+    this.commit(room);
+  }
+
 }
 
 export default new RoomStore();

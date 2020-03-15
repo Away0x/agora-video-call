@@ -4,6 +4,7 @@ export interface IObserver<T> {
   subscribe: (setState: (state: T) => void) => void;
   unsubscribe: () => void;
   commit: (newState: Partial<T>) => void;
+  reset: () => void;
   defaultState: T;
   state: T;
 }
@@ -44,6 +45,10 @@ export abstract class RxStore<T> implements IObserver<T> {
 
   public commit(newState: Partial<T>) {
     this.subject && this.subject.next({ ...this.state, ...newState });
+  }
+
+  public reset() {
+    this.subject && this.subject.next({ ...this.defaultState });
   }
 
 }

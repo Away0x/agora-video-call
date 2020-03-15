@@ -14,10 +14,10 @@ class UserInteractors extends Singleton {
     try {
       const { uid, name, portraitId, streamId } = await userServices.registerUser(params);
       userStore.updateUserInfo({ uid, name, portraitId, streamId });
-      globalStore.stopLoading();
     } catch (err) {
+      console.warn(`[UserInteractors#registerUser] error: ${err}`);
+    } finally {
       globalStore.stopLoading();
-      console.warn(`[LoginPage#registerUser] error: ${err}`);
     }
   };
 

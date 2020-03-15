@@ -3,6 +3,7 @@ import { localStorage as storage } from '@/tools/storage';
 
 export interface GlobalState {
   loading: boolean;
+  loadingTip: string;
   unmuteRequestTimeout: number;
 }
 
@@ -24,15 +25,19 @@ class GlobalStore extends RxStore<GlobalState> {
     storage.save(STORAGE_KEY, state);
   }
 
-  public startLoading() {
+  public startLoading(tip = '') {
+    if (this.state.loading && tip === '') return;
+
     this.commit({
       loading: true,
+      loadingTip: tip,
     });
   }
 
   public stopLoading() {
     this.commit({
       loading: false,
+      loadingTip: '',
     });
   }
 

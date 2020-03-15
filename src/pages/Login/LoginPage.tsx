@@ -12,7 +12,7 @@ import {
   RegisterUserParams,
 } from '@/services/user';
 
-import { browserCheck } from './helpers';
+import { browserCheck, isSafari } from './helpers';
 
 enum CardType {
   JOIN_ROOM_CARD = 'JOIN_ROOM_CARD',
@@ -39,8 +39,8 @@ interface LoginPageProps {
   roomPwd: string;
   hasPwd: boolean;
 
-  gotoMettingPage: () => void;
   registerUser: (d: RegisterUserParams) => Promise<void>;
+  joinRoom: (roomName: string, password: string) => void;
 }
 
 function LoginPage({
@@ -51,14 +51,13 @@ function LoginPage({
   enableVideo,
   roomId,
   roomPwd,
-  hasPwd,
+  // hasPwd,
   microphoneId,
   cameraId,
   videoProfile,
 
-  gotoMettingPage,
-
   registerUser,
+  joinRoom,
 }: LoginPageProps) {
   const [gdprAccepted, setGdprAccepted] = useState(gdprAcceptedStorageData || false);
   const [currentCard, setCurrentCard] = useState(CardType.JOIN_ROOM_CARD);
@@ -73,8 +72,11 @@ function LoginPage({
   }, []);
 
   const onJoinRoom = useCallback(({ roomName, password }: JoinRoomCardSubmitData) => {
-
-  }, []);
+    if (!name) {
+      return setCurrentCard(CardType.SET_NICKNAME_CARD);
+    }
+    joinRoom(roomName, password);
+  }, [joinRoom, name]);
 
   const switchJoinRoomCard = useCallback(() => {
     setCurrentCard(CardType.JOIN_ROOM_CARD)
@@ -84,10 +86,9 @@ function LoginPage({
     setCurrentCard(CardType.DEVICE_SETTING_CARD)
   }, []);
 
-  const onSettingNickName = useCallback((data: SetNicknameCardSubmitData) => {
-    registerUser({ name: data.nickname }).then(() => {
-      switchJoinRoomCard();
-    });
+  const onSettingNickName = useCallback(async (data: SetNicknameCardSubmitData) => {
+    await registerUser({ name: data.nickname });
+    switchJoinRoomCard();
   }, [registerUser, switchJoinRoomCard]);
 
   const onUpdateUserSettings = useCallback((opts: UserSettingsCardSubmitData) => {
@@ -96,6 +97,12 @@ function LoginPage({
 
   const onUpdateStreamProfiles = useCallback((opts: DeviceSettingsCardSubmitData) => {
     // updateStreamProfiles(opts);
+    if (isSafari) {
+
+    } else {
+
+    }
+
     switchJoinRoomCard();
   }, [switchJoinRoomCard]);
 
@@ -109,14 +116,21 @@ function LoginPage({
       return <UserSettingsCard
         defaultNickname={name}
         defaultAvatarId={portraitId}
+        defaultEnableVideo={enableVideo}
+        defaultEnableAudio={enableAudio}
         onCancel={switchJoinRoomCard}
         onSubmit={onUpdateUserSettings} />
     } else if (currentCard === CardType.DEVICE_SETTING_CARD) {
       return <DeviceSettingsCard
+        defaultMicrophoneId={microphoneId}
+        defaultCameraId={cameraId}
+        defaultVideoProfile={videoProfile}
         onCancel={switchJoinRoomCard}
         onSubmit={onUpdateStreamProfiles} />
     }
     return <JoinRoomCard
+      defaultRoomName={roomId}
+      defaultPassword={roomPwd}
       onOpenSettings={switchDeviceSettingsCard}
       onSubmit={onJoinRoom} />
     // eslint-disable-next-line

@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Loading from '@/components/Loading';
-import { useGlobalState, useUserState, useRoomState } from '@/containers/root';
+import { useUserState, useRoomState } from '@/containers/root';
 import {
   RegisterUserParams,
 } from '@/services/user';
 import { userInteractors } from '@/interactors/user';
+import { roomInteractors } from '@/interactors/room';
 
 import LoginPage from './LoginPage';
 
@@ -14,8 +14,7 @@ import LoginPage from './LoginPage';
 function LoginPageContainer() {
   const history = useHistory();
 
-  const { loading } = useGlobalState();
-
+  const { roomId, hasPwd, roomPwd } = useRoomState();
   const {
     portraitId,
     name,
@@ -25,12 +24,6 @@ function LoginPageContainer() {
     cameraId,
     videoProfile,
   } = useUserState();
-
-  const {
-    roomId,
-    hasPwd,
-    roomPwd,
-  } = useRoomState();
 
   const avatar = useMemo(() => {
     return portraitId
@@ -42,30 +35,29 @@ function LoginPageContainer() {
     return userInteractors.registerUser(params);
   }, []);
 
-  const gotoMettingPage = useCallback(() => {
-    history.push('/metting');
+  const joinRoom = useCallback(async (roomName: string, password: string) => {
+    try {
+      await roomInteractors.joinRoom({ roomName, password });
+      history.push('/metting');
+    } catch (err) {}
   }, [history]);
 
   return (
-    <>
-      {loading ? <Loading /> : null}
-
-      <LoginPage
-        portraitId={portraitId}
-        name={name}
-        avatar={avatar}
-        enableAudio={enableAudio}
-        enableVideo={enableVideo}
-        microphoneId={microphoneId}
-        cameraId={cameraId}
-        videoProfile={videoProfile}
-        roomId={roomId}
-        hasPwd={hasPwd}
-        roomPwd={roomPwd}
-        gotoMettingPage={gotoMettingPage}
-        registerUser={handleRegisterUser}
-      />
-    </>
+    <LoginPage
+      portraitId={portraitId}
+      name={name}
+      avatar={avatar}
+      enableAudio={enableAudio}
+      enableVideo={enableVideo}
+      microphoneId={microphoneId}
+      cameraId={cameraId}
+      videoProfile={videoProfile}
+      roomId={roomId}
+      hasPwd={hasPwd}
+      roomPwd={roomPwd}
+      registerUser={handleRegisterUser}
+      joinRoom={joinRoom}
+    />
   );
 }
 
